@@ -3,15 +3,28 @@ public class TextStatement extends Statement {
 
   public String value(Customer aCustomer){
     Enumeration rentals = aCustomer.getRentals();
-    String result = "Rental Record for " + aCustomer.getName() + "\n";
+    String result = CustomerName(aCustomer.getName());
     while (rentals.hasMoreElements()) {
       Rental each = (Rental) rentals.nextElement();
-      //show figures for this rental
-      result += "\t" + each.getMovie().getTitle()+ "\t" + String.valueOf(each.getCharge()) + "\n";
+      //show figures for each rental
+      result += Figures(each.getMovie().getTitle(), each.getCharge());
     }
     //add footer lines
-    result +=  "Amount owed is " + String.valueOf(aCustomer.getTotalCharge()) + "\n";
-    result += "You earned " + String.valueOf(aCustomer.getTotalFrequentRenterPoints()) + " frequent renter points";
+    result += Owed(aCustomer.getTotalCharge());
+    result += Earned(aCustomer.getTotalFrequentRenterPoints());
     return result;
+  }
+
+  public String CustomerName(String Name){
+    return "Rental Record for " + Name + "\n";
+  }
+  public String Owed(double Amount){
+    return "Amount owed is " + String.valueOf(Amount) + "\n";
+  }
+  public String Earned(int Amount){
+    return "You earned " + String.valueOf(Amount) + " frequent renter points";
+  }
+  public String Figures(String Title, double charge){
+    return "\t" + Title + "\t" + String.valueOf(charge) + "\n";
   }
 }
